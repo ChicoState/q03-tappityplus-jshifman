@@ -77,3 +77,53 @@ TEST(tappityTest, emptyInput_accuracy)
 	double result = t.accuracy();
 	ASSERT_EQ(result, 0);
 }
+
+TEST(tappityTest, exactSame_length)
+{
+	tappity t = tappity("Hello World");
+	t.entry("Hello World");
+	int result = t.length_difference();
+	ASSERT_EQ(0, result);
+}
+
+TEST(tappityTest, exactSame_accuracy)
+{
+	tappity t = tappity("Hello World");
+	t.entry("Hello World");
+	double result = t.accuracy();
+	ASSERT_EQ(100, result);
+}
+
+TEST(tappityTest, halfOffset_length)
+{
+	tappity t = tappity("Hello World");
+	t.entry("HelloWorld");
+	int result = t.length_difference();
+	ASSERT_EQ(1, result);
+}
+
+TEST(tappityTest, halfOffset_accuracy)
+{
+	tappity t = tappity("Hello World");
+	t.entry("HelloWorld");
+	double result = t.accuracy();
+	double expected = 100 * 5.0/strlen("Hello World");
+	ASSERT_EQ(expected, result);
+}
+
+TEST(tappityTest, caseSensitive_length)
+{
+	tappity t = tappity("Hello World");
+	t.entry("hello world");
+	int result = t.length_difference();
+	ASSERT_EQ(0, result);
+}
+
+TEST(tappityTest, caseSensitive_accuracy)
+{
+	tappity t = tappity("Hello World");
+	t.entry("hello world");
+	double result = t.accuracy();
+	double expected = 100 * (9.0/strlen("Hello World"));
+	ASSERT_EQ(expected, result);
+}
