@@ -127,3 +127,21 @@ TEST(tappityTest, caseSensitive_accuracy)
 	double expected = 100 * (9.0/strlen("Hello World"));
 	ASSERT_EQ(expected, result);
 }
+
+TEST(tappityTest, backwardGuess_length)
+{
+	tappity t = tappity("Hello World");
+	t.entry("dlroW olleH");
+	int result = t.length_difference();
+	ASSERT_EQ(0, result);
+}
+
+TEST(tappityTest, backwardGuess_accuracy)
+{
+	tappity t = tappity("Hello World");
+	t.entry("dlroW olleH");
+	double result = t.accuracy();
+	double expected = 100.0 * 1.0/strlen("Hello World");
+	ASSERT_EQ(expected, result);
+}
+
